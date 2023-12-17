@@ -1,0 +1,20 @@
+﻿
+<div class="nav__menu">
+            <DxMenu Title="Admin Panel "
+                    Orientation="Orientation"
+                    DisplayMode="DisplayMode"
+                    CollapseItemsToHamburgerMenu="true"
+                   >
+                <Items>
+                    <DxMenuItem Text="Home" IconCssClass="oi oi-home" NavigateUrl="/"  />
+                    <DxMenuItem Text="Counter" IconCssClass="oi oi-plus" NavigateUrl="counter" />
+                    <DxMenuItem Text="Fetch data" IconCssClass="oi oi-list-rich" NavigateUrl="fetchdata" />
+                </Items>
+            </DxMenu>
+</div>
+
+
+@code {
+    MenuDisplayMode DisplayMode { get; set; } = MenuDisplayMode.Auto;
+    Orientation Orientation { get; set; } = Orientation.Horizontal;
+}

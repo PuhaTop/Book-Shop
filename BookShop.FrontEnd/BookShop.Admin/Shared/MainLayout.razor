@@ -1,0 +1,33 @@
+﻿@using BookShop.Admin.Model
+@inherits LayoutComponentBase
+
+<AuthorizeView>
+    <Authorized>
+        <header>
+            <div class="container">
+                <NavMenu />
+            </div>
+        </header>
+        
+        <main>
+            <div class="container">
+                @Body
+            </div>
+        </main>
+    </Authorized>
+    
+    <NotAuthorized>
+        <div class="container">
+            <LoginForm LoginEventCallback="(value) => GotoLoginEventCallback(value)"  />
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code{
+    private Login _login = new();
+
+    async Task GotoLoginEventCallback(Login login)
+    {
+        _login = login;
+    }
+}

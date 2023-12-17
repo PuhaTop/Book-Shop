@@ -1,0 +1,56 @@
+﻿@using BookShop.Admin.Model
+
+<div class="login__form">
+    <EditForm Model="@_login" Context="EditFormContext">
+           <DataAnnotationsValidator />
+           <div class="card-header text-center py-3">
+               <h4>Welcome to Admin Panel</h4>
+           </div>
+           <div class="card-body">
+               <DxFormLayout>
+                   <DxFormLayoutItem ColSpanMd="12">
+                       <label for="tbUsername" class="d-none">Username</label>
+                       <DxTextBox @bind-Text="@_login.UserName"
+                                  NullText="Username"
+                                  ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                                  InputId="tbUsername" />
+                       <div class="text-danger">
+                           <ValidationMessage For="@(() => _login.UserName)" />
+                       </div>
+                   </DxFormLayoutItem>
+                   <DxFormLayoutItem ColSpanMd="12">
+                       <label for="tbPassword" class="d-none">Password</label>
+                       <DxTextBox @bind-Text="@_login.Password"
+                                  NullText="Password"
+                                  Password="true"
+                                  ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                                  InputId="tbPassword" />
+                       <div class="text-danger">
+                           <ValidationMessage For="@(() => _login.Password)" />
+                       </div>
+                   </DxFormLayoutItem>
+                   <DxFormLayoutItem ColSpanMd="12">
+                       <DxButton CssClass="w-100"
+                                 Text="Login"
+                                 RenderStyle="ButtonRenderStyle.Primary"
+                                 SubmitFormOnClick="true" 
+                                 Click="GotoLoginEventCallbackClick"
+                                 />
+                   </DxFormLayoutItem>
+               </DxFormLayout>
+           </div>
+       </EditForm>
+   </div>
+
+
+@code {
+    private Login _login = new();
+
+    [Parameter]
+    public EventCallback<Login> LoginEventCallback { get; set; }
+    
+    async Task GotoLoginEventCallbackClick() {
+        await LoginEventCallback.InvokeAsync(_login);
+    }
+
+}

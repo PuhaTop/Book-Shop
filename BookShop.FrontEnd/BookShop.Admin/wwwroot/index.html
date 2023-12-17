@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>BookShop.Admin</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="BookShop.Admin.styles.css" rel="stylesheet" />
+    <link href="_content/DevExpress.Blazor.Themes/blazing-berry.bs5.min.css" rel="stylesheet"
+          asp-append-version="true"/></head>
+
+<style>
+    .spinner{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .spinner-border{
+        width: 150px;
+        height: 150px;
+        border-color: #fff purple;
+    }
+    
+    .spinner__block-text{
+        margin-top: 60px;
+    }
+    
+    .spinner__text{
+        font-size: 21px;
+        letter-spacing: 14px;
+        font-weight: bold;
+    }
+    
+</style>
+
+<body>
+
+<div id="app" >
+    <div class="spinner">
+        <div class="spinner-border" role="status"></div>
+        <div class="spinner__block-text">
+            <p class="spinner__text">Loading...</p>
+        </div>
+    </div>
+</div>
+    
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+</body>
+
+</html>

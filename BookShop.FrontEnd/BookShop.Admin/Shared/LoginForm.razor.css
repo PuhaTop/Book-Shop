@@ -1,0 +1,10 @@
+﻿.login__form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.card-header{
+    background: none;
+}
