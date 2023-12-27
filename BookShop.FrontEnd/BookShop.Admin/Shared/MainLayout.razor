@@ -1,5 +1,11 @@
 ﻿@using BookShop.Admin.Model
+@using Newtonsoft.Json
+@using System.Text
 @inherits LayoutComponentBase
+@inject HttpClient Client
+@inject ILocalStorageService LocalStorage
+@inject AuthenticationStateProvider AuthStateProvider
+
 
 <AuthorizeView>
     <Authorized>
@@ -18,16 +24,57 @@
     
     <NotAuthorized>
         <div class="container">
-            <LoginForm LoginEventCallback="(value) => GotoLoginEventCallback(value)"  />
+            <LoginForm LoginEventCallback="(value) => GotoLoginEventCallback(value)" IsShow="_isShow"  />
+            
+        
+            
         </div>
     </NotAuthorized>
 </AuthorizeView>
 
 @code{
-    private Login _login = new();
 
-    async Task GotoLoginEventCallback(Login login)
+    private bool _isShow = true;
+    
+    async Task GotoLoginEventCallback(LoginModel login)
     {
-        _login = login;
+        try
+        {
+
+            var json = JsonConvert.SerializeObject(login);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var http = await Client.PostAsync("https://localhost:7053/api/Auth/login", content);
+
+            if (!http.IsSuccessStatusCode)
+            {
+                _isShow = false;
+                return;
+            }
+
+            var response = await http.Content.ReadAsStringAsync();
+
+            var token = JsonConvert.DeserializeAnonymousType(response,new
+            {
+                StatusCode = 200,
+                Token = ""
+            })!.Token;
+
+            await LocalStorage.SetItemAsync("token",token);
+            await AuthStateProvider.GetAuthenticationStateAsync();
+
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        
+    
+
+
     }
+
+    
+
+
 }
+
